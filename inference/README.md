@@ -7,6 +7,7 @@ Inference Module for object detection, pose detection and tracking algorithms.
 
 ```bash
 git clone git@github.com:KiwiiXaos/tracklab-small-inference.git
+
 cd inference/
 
 poetry shell
