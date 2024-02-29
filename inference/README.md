@@ -13,9 +13,8 @@ Use poetry to install dependencies. Python ">=3.8.0,<4.0" torch "=2.1.1"
 ```bash
 poetry shell
 poetry install
+
 poe post-install
-
-
 ```
 
 ## How to use with Python
