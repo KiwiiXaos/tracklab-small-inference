@@ -4,16 +4,15 @@ Inference Module for object detection, pose detection and tracking algorithms.
 ## Installation guide[^1]
 
 
-
+Download github repo:
 ```bash
 git clone git@github.com:KiwiiXaos/tracklab-small-inference.git
-
 cd inference/
-
+```
+Use poetry to install dependencies. Python ">=3.8.0,<4.0" torch "=2.1.1"
+```bash
 poetry shell
-
 poetry install
-
 poe post-install
 
 
