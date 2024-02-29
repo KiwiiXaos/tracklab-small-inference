@@ -26,11 +26,11 @@ Work in progress
 * Yolov5
 
 ### Trackers
-*oc_sort
-*strong_sort
-*deep_oc_sort
-*bot_sort
-*bytetrack_sort
+* oc_sort
+* strong_sort
+* deep_oc_sort
+* bot_sort
+* bytetrack_sort
 
 ## How to use with Python
 
