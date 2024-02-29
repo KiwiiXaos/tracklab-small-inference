@@ -5,7 +5,7 @@ from pathlib import Path
 
 from tracklab.pipeline import ImageLevelModule
 from tracklab.utils.coordinates import ltrb_to_ltwh
-import strong_sort.strong_sort as strong_sort
+import plugins.track.strong_sort.strong_sort as strong_sort
 
 import logging
 

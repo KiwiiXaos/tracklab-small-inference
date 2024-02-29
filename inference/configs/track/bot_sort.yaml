@@ -1,0 +1,23 @@
+_target_: inference.BOTSORT_Wrapper
+
+cfg:
+  # weights can be downloaded from :
+  #https://github.com/mikel-brostrom/Yolov7_StrongSORT_OSNet/blob/main/strong_sort/deep/checkpoint/osnet_x1_0_msmt17.pth
+  fp16: false
+  path_to_checkpoint: ${checkpoints_dir}
+  min_confidence: 0.4
+  checkpoint: osnet_x1_0_msmt17.pt
+  
+  download_weights: 1QkxD9l8xLuekwJ-jWCMcNYif4RNGc_S6
+  download_type: 'drive'
+  
+  hyperparams:
+    appearance_thresh: 0.4818211117541298  # default = 0.25
+    cmc_method: sparseOptFlow  # default = sparseOptFlow
+    frame_rate: 30  # default = 30
+    lambda_: 0.9896143462366406  # default = 0.985
+    match_thresh: 0.22734550911325851  # default = 0.8
+    new_track_thresh: 0.21144301345190655  # default = 0.6
+    proximity_thresh: 0.5945380911899254  # default = 0.5
+    track_buffer: 60  # default = 30
+    track_high_thresh: 0.33824964456239337  # default = 0.45

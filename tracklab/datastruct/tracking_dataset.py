@@ -4,6 +4,7 @@ from abc import ABC
 from pathlib import Path
 from dataclasses import dataclass
 import pandas as pd
+from typing import Dict
 
 
 log = logging.getLogger(__name__)
@@ -30,7 +31,7 @@ class TrackingDataset(ABC):
     def __init__(
         self,
         dataset_path: str,
-        sets: dict[str, TrackingSet],
+        sets: Dict[str, TrackingSet] = {},
         nvid: int = -1,
         nframes: int = -1,
         vids_dict: list = None,

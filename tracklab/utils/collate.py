@@ -2,7 +2,8 @@ import re
 import torch
 
 np_str_obj_array_pattern = re.compile(r"[SaUO]")
-from torch._six import string_classes
+#from torch._six import string_classes
+string_classes = str
 import collections
 
 default_collate_err_msg_format = (

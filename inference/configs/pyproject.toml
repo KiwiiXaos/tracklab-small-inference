@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "pb-small"
+version = "0.1.0"
+description = ""
+authors = ["Celine Demonsant <celine.demonsant@epfl.ch>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8.0,<4.0"
+numpy = "1.24.4"
+yolov5 = "^7.0.13"
+openpifpaf-vita = "^0.14.1"
+ultralytics = "8.0.186"
+hydra-core = "^1.3.2"
+poethepoet = "^0.24.4"
+pytorch-lightning = "^2.1.2"
+lightning = "^2.1.2"
+openmim = "^0.3.9"
+sphinx = "5.0.2"
+sphinx-rtd-theme = "^1.3.0"
+alive-progress = "^3.1.5"
+pysparkling = "^0.6.2"
+poseval = {git = "https://github.com/PbTrack/poseval.git", rev = "pbtrack"}
+scikit-learn = "^1.3.2"
+gdown = "^4.7.1"
+wget = "^3.2"
+filterpy = "^1.4.5"
+torch = "2.1.1"
+
+[tool.poe.tasks]
+post-install = "pip install lap"
+reinstall-pifpaf = "pip uninstall -y openpifpaf-vita && pip install --no-build-isolation --no-binary=openpifpaf-vita openpifpaf-vita"

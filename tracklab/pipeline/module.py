@@ -1,6 +1,6 @@
 import re
 from abc import ABC, ABCMeta
-from typing import List
+from typing import List, Dict
 
 import logging
 
@@ -67,7 +67,7 @@ class Pipeline:
         self.models = [model for model in models if model.name != "skip"]
         log.info("Pipeline: " + " -> ".join(model.name for model in self.models))
 
-    def validate(self, load_columns: dict[str, set]):
+    def validate(self, load_columns: Dict[str, set]):
         columns = {k: set(v) for k, v in load_columns.items()}
         for level in ["image", "detection"]:
             for model in self.models:

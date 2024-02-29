@@ -1,0 +1,47 @@
+#TO USE CLI, MODEL SELECTION COMMAND LINE
+defaults:
+  - _self_
+  - detector : openpifpaf
+  - track : oc_sort
+  - visualization : visualization
+
+#PYTHON API DEFAULT CONFIG FILES FOR EACH MODELS AND TRACKERS..
+config_models:
+  openpifpaf : detector/openpifpaf 
+  yolov5: detector/yolov5
+  mmpose_bottomup: detector/mmpose_bottomup
+  mmdetection: detector/mmdetection
+  mmpose_topdowm: detector/mmpose_topdown
+  bytetrack_sort: track/byte_track
+  deep_oc_sort: track/deep_oc_sort
+  oc_sort: track/oc_sort
+  strong_sort: track/strong_sort
+  bot_sort: track/bot_sort
+  af_link: track/af_link
+  bpreid_strong_sort: track/bpreid_strong_sort
+
+config_visualization:
+  -visualization: visualisation
+  
+
+experiment_name: "inference video"
+checkpoints_dir: "/home/celine/Desktop/folder_test/"
+working_dir: "./folder_test/"
+num_cores: 1+
+visualize: True
+
+online: True
+
+json_output: None
+
+video_path: "/home/celine/Videos/dartfish_1.mp4"
+video_batch: True
+
+test_tracking: True
+use_wandb: True
+
+
+
+# configure Hydra to use the current working directory
+# and set up the output directory according to experiment_name
+project_dir: "${hydra:runtime.cwd}"

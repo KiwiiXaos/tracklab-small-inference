@@ -1,11 +1,11 @@
 from hydra.core.config_search_path import ConfigSearchPath
-from hydra.plugins.search_path_plugin import SearchPathPlugin
+#from hydra.plugins.search_path_plugin import SearchPathPlugin
 from importlib.metadata import entry_points
 import logging
 
 log = logging.getLogger(__name__)
 
-
+'''
 class PbTrackSearchPathPlugin(SearchPathPlugin):
     def manipulate_search_path(self, search_path: ConfigSearchPath) -> None:
         # Appends the search path for tracklab plugins to the end of the search path
@@ -18,3 +18,5 @@ class PbTrackSearchPathPlugin(SearchPathPlugin):
                 search_path.append(provider="tracklab", path=module.config_package)
             else:
                 log.warning(f"{module} doesn't provide a config path")
+
+'''

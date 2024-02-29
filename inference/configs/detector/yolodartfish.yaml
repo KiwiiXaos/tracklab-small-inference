@@ -1,0 +1,15 @@
+_target_: inference.YOLOv5_DartFish
+
+cfg:
+  # models available :
+  # yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt, yolov8x6.pt
+  # yolov5nu.pt, yolov5su.pt, yolov5mu.pt, yolov5lu.pt, yolov5xu.pt, yolov5x6u.pt
+  # those models will be downloaded automatically if not found in the path
+  yolo_weights: yolov5n.pt # yolov8x-pose-p6.pt # 
+  path_to_checkpoint: ${checkpoints_dir} 
+  checkpoint: yolov5n.pt
+  min_confidence: 0.1
+  imgsz: [1080,1920]
+  dnn: 1
+  half: False
+

@@ -1,0 +1,27 @@
+_target_: inference.DEEP_OCSORT_Wrapper
+
+cfg:
+  # weights can be downloaded from :
+  # https://github.com/mikel-brostrom/yolov8_tracking/tree/master/trackers/strongsort/deep/checkpoint
+  checkpoint: osnet_x1_0_msmt17.pt #PATHTO/osnet_x1_0_msmt17.pt
+  download_weights: 1QkxD9l8xLuekwJ-jWCMcNYif4RNGc_S6
+  download_type: 'drive'
+  fp16: false
+  path_to_checkpoint: ${checkpoints_dir}
+  min_confidence: 0.4
+
+  hyperparams:
+    det_thresh: 0
+    max_age: 50  # default = 30
+    min_hits: 1  # default = 3
+    iou_threshold: 0.22136877277096445  # default = 0.3
+    delta_t: 1  # default = 3
+    asso_func: giou  # default = iou
+    inertia: 0.3941737016672115  # default = 0.2
+    w_association_emb: 0.75  # default = 0.75
+    alpha_fixed_emb: 0.95  # default = 0.95
+    aw_param: 0.5  # default = 0.5
+    embedding_off: false  # default = false
+    cmc_off: false  # default = false
+    aw_off: false  # default = false
+    new_kf_off: false  # default = false

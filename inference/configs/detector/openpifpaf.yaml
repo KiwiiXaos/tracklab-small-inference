@@ -1,0 +1,73 @@
+_target_: inference.test.OCSORT_Wrapper
+
+cfg:
+  path_to_checkpoint: ${checkpoints_dir} 
+  checkpoint: "shufflenetv2k30-201104-224654-cocokp-d75ed641.pkl"
+  download_weights: "1b408ockhh29OLAED8Tysd2yGZOo0N_SQ"
+  download_type: "drive"
+  long-edge: 501                              # rescale the long side of the image (aspect ratio maintained)
+  dense-connections: null                     # use denser associations
+  seed-threshold: 0.2                         # filter seeds by score (default: 0.5)
+  #instance_threshold: 0.3                   # filter instances by score (default: 0.15)
+  decoder-workers: ${num_cores}               # number of workers for decoder (default: 0)
+  fast_rescaling: True
+  batch_size: 0
+  disable_cuda: false
+  quiet: True
+  force_complete_pose: True
+  #TODO: Change config file? 
+  decoder: ['cifcaf:0']
+  instance_threshold: 0.3
+
+  
+
+  ### CifCaf decoders:
+#    cif-th: 0.3                                 # cif threshold (default: 0.3)
+#    caf-th: 0.3                                 # caf threshold (default: 0.3)
+  ### CifCaf decoder:
+#    force-complete-pose: null                   # force to output every pose and keypoints (?)
+#    force-complete-caf-th: 0.001                # CAF threshold for force complete. Set to -1 to deactivate. (default: 0.001)
+#    nms-before-force-complete: null            # run an additional NMS before completing poses (default: False)
+#    keypoint-threshold: 0.15                    # filter keypoints by score (default: 0.15)
+#    keypoint-threshold-rel: 0.5                 # filter keypoint connections by relative score (default: 0.5)
+
+
+  bbox:
+    extension_factor: [ 0.1, 0.03, 0.1 ]  # [top, bottom, right&left]
+
+  gdown: "1b408ockhh29OLAED8Tysd2yGZOo0N_SQ"
+
+  model_map:
+    fast: "shufflenetv2k16"  # shufflenetv2k16-center, shufflenetv2k16
+    accurate: "shufflenetv2k30"  # shufflenetv2k30-center, shufflenetv2k30
+    fast_wholebody: "shufflenetv2k16-wholebody" # shufflenetv2k16-wb-hand or shufflenetv2k16-wholebody
+    wb_hand: "shufflenetv2k16-wb-hand"
+    accurate_wholebody: "shufflenetv2k30-wholebody"
+    pose_track: "tshufflenetv2k30"
+    fast_car: "shufflenetv2k16-apollo-24"
+    accurate_car: "shufflenetv2k16-apollo-66"
+    animal: "shufflenetv2k30-animalpose"
+    # PifPafModel.fast_center: "v2-shufflenetv2k16-center",
+    # PifPafModel.accurate_center: "v2-shufflenetv2k30-center",
+    hand: "shufflenetv2k16-hand"
+    nuscenes: "shufflenetv2k16-nuscenes"
+    cocodet: "resnet18-cocodet"
+
+  decoder_map:
+    fast: ['cifcaf:0']  # shufflenetv2k16-center, shufflenetv2k16
+    accurate: ['cifcaf:0']  # shufflenetv2k30-center, shufflenetv2k30
+    fast_wholebody: ['cifcaf:0'] # shufflenetv2k16-wb-hand or shufflenetv2k16-wholebody
+    wb_hand: ['cifcaf:0']
+    accurate_wholebody: ['cifcaf:0']
+    pose_track: ['trackingpose:0']
+    fast_car: ['cifcaf:0']
+    accurate_car: ['cifcaf:0']
+    animal: ['cifcaf:0']
+    # PifPafModel.fast_center: "v2-shufflenetv2k16-center",
+    # PifPafModel.accurate_center: "v2-shufflenetv2k30-center",
+    hand: ['cifcaf:0']
+    nuscenes: ['cifdet:0']
+    cocodet: ['cifdet:0']
+
+
+
