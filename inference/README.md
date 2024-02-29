@@ -20,12 +20,12 @@ poe post-install
 ## Current Available Models
 Work in progress
 
-##Pose and Object detections
+### Pose and Object detections
 *Openpifpaf
 *Yolov8
 *Yolov5
 
-##Trackers
+### Trackers
 *oc_sort
 *strong_sort
 *deep_oc_sort
