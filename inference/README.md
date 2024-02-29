@@ -10,7 +10,10 @@ git clone git@github.com:KiwiiXaos/tracklab-small-inference.git
 cd inference/
 
 poetry shell
+
 poetry install
+
+poe post-install
 
 
 ```
