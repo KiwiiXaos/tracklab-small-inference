@@ -25,7 +25,7 @@ import pb-track.inference as inference
 
 #Initialise Inference with mp4 path 
 
-inference = VideoInference('/home/celine/Downloads/celine_test12.mp4')
+inference = VideoInference('/path/video.mp4')
 
 #models are defined with add_model, it can be a list of several models #TODO: models plugins...
 #Available models: openpifpaf, yolov5, yolov8, strong_sort, oc_sort, deep_oc_sort, bot_sort, bytetrack_sort
