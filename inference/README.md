@@ -19,7 +19,7 @@ poe post-install
 
 ```
 
-## How to use[^1]
+## How to use with Python
 
 ```bash
 
@@ -50,5 +50,11 @@ inference.process_video_online()
 
 ```
 
+## How to use with CLI
+
+```bash
+python -m inference.run
+
+```
 
 
