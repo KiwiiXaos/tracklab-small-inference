@@ -21,9 +21,9 @@ poe post-install
 Work in progress
 
 ### Pose and Object detections
-*Openpifpaf
-*Yolov8
-*Yolov5
+* Openpifpaf
+* Yolov8
+* Yolov5
 
 ### Trackers
 *oc_sort
