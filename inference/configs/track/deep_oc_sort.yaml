@@ -1,4 +1,4 @@
-_target_: inference.DEEP_OCSORT_Wrapper
+_target_: inference.DeepOCSortWrapper
 
 cfg:
   # weights can be downloaded from :

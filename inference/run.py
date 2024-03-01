@@ -477,7 +477,6 @@ class VideoInference():
         cfg = cfg.visualization.cfg
         self.visualization_cli(cfg, video_path)
 
-
     def read_from_json(self, filename):
         """
         Read json and save it as result in pipeline.
@@ -493,7 +492,6 @@ class VideoInference():
         self.previous_results = results
         return self.previous_results
     
-
     def write_json(self, filename):
         """
         Save detections result in a json file.
@@ -513,9 +511,6 @@ class VideoInference():
         except FileNotFoundError:
             log.warning("The file does not exist. Please check the file path.")
 
-        
-
-
     # If video capture is webcam, force online ?
     def process_video(self, output_json=None):
         """
@@ -525,7 +520,6 @@ class VideoInference():
         - output_json: String: output json file path
         
         """
-        #TODO: T change json_output
         if output_json != None:
             self.json = True
         
@@ -597,8 +591,7 @@ class VideoInference():
                     new_result = model.process(self.previous_results)
                     self.previous_results = new_result
                     if self.json:
-                        self.write_json(output_json)
-                                
+                        self.write_json(output_json)                          
                     
     def process_video_online(self):
         """
@@ -666,11 +659,11 @@ def func(cfg: DictConfig):
 
 
     if 'detector' in cfg:
-        detector = instantiate(cfg.detector, Test.device)
+        detector = instantiate(cfg.detector, inference.device)
         inference.pipeline.append(detector)
 
     if 'track' in cfg:
-        track = instantiate(cfg.track, Test.device)
+        track = instantiate(cfg.track, inference.device)
         inference.pipeline.append(track)
 
     if 'json_input' in cfg:
@@ -679,35 +672,17 @@ def func(cfg: DictConfig):
 
     if cfg.online is False:
         inference.process_video(cfg.json_output)
+
     else:
         inference.process_video_online()
 
     if cfg.visualize: #visualize american
-        inference.visualization(cfg.visualization , cfg.video_path)
+        inference.visualization_cli(cfg.visualization , cfg.video_path)
 
 
 
                 
 if __name__ == "__main__":
-    #hydra.initialize(version_base=None, config_path="configs/", job_name="inference")
-    #creer dossier
-    #VideoInference
-    #visualization
-    #download_website(repo_url='https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_x101_64x4d_fpn_mstrain_3x_coco/faster_rcnn_x101_64x4d_fpn_mstrain_3x_coco_20210524_124528-26c63de6.pth', target_dir='/home/celine/testdownload/jsp2.pth')
-    Test = VideoInference("/home/celine/pb-small/pb-track/inference/video_files/openpifpaf.mp4")
-    Test.add_model(['openpifpaf', 'bytetrack_sort'])
-    list_array = ["/home/celine/pb-small/pb-track/inference/video_files/openpifpaf.mp4", "/home/celine/pb-small/pb-track/inference/video_files/BAMBI004_Supine 1-converted.mp4" ]
-    Test.process_video_online()
-
-    #Test.add_model(['yolov5','oc_sort' ])
-    #Test.process_video('/home/celine/pb-dart2/pb-track/inference/video_files/preaflink.json')
-    #Pouvoir batcher les videos.. dans process videos. batch de videos etc...
-    
-            
-    #Test.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
-    #Test.add_model(['yolov5','strong_sort', 'af_link' ])
-    
-    #Test.process_video('/home/celine/pb-small/pb-track/inference/video_files/baby.json')
-    Test.visualization('/home/celine/pb-dart2/pb-track/inference/video_files/inferencetest.mp4')
+    func()
 
     

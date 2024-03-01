@@ -1,4 +1,4 @@
-_target_: inference.test.OCSORT_Wrapper
+_target_: inference.OpenpifpafWrapper
 
 cfg:
   path_to_checkpoint: ${checkpoints_dir} 

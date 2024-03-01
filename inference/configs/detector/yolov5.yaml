@@ -1,4 +1,4 @@
-_target_: inference.YOLOv5_Wrapper
+_target_: inference.Yolov5Wrapper
 
 cfg:
   # models available :

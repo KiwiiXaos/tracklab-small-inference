@@ -1,4 +1,4 @@
-_target_: inference.BYTETRACK_Wrapper
+_target_: inference.BytetrackWrapper
 
 cfg:
   min_confidence: 0.4

@@ -1,4 +1,4 @@
-_target_: inference.STRONG_SORT_Wrapper
+_target_: inference.StrongSortWrapper
 
 cfg:
   # weights can be downloaded from :

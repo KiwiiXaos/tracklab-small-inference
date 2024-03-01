@@ -1,4 +1,4 @@
-_target_: inference.BOTSORT_Wrapper
+_target_: inference.BotSortWrapper
 
 cfg:
   # weights can be downloaded from :

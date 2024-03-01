@@ -1,7 +1,7 @@
 #TO USE CLI, MODEL SELECTION COMMAND LINE
 defaults:
   - _self_
-  - detector : openpifpaf
+  - detector : yolov5
   - track : oc_sort
   - visualization : visualization
 
@@ -21,24 +21,22 @@ config_models:
   bpreid_strong_sort: track/bpreid_strong_sort
 
 config_visualization:
-  -visualization: visualisation
+  -visualization: visualization
   
 
 experiment_name: "inference video"
-checkpoints_dir: "/home/celine/Desktop/folder_test/"
-working_dir: "./folder_test/"
-num_cores: 1+
+checkpoints_dir: "/home/celine/pb-small/pb-track/inference/checkpoints/"
 visualize: True
 
-online: True
+online: False
 
 json_output: None
 
-video_path: "/home/celine/Videos/dartfish_1.mp4"
+video_path: "/home/celine/pb-small/pb-track/inference/video_files/dartfishframaflink2.mp4"
 video_batch: True
 
 test_tracking: True
-use_wandb: True
+use_wandb: False
 
 
 

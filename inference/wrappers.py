@@ -158,7 +158,7 @@ class Yolov5Wrapper(ModelWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__("yolov5")
         self.cfg = cfg
-        check_checkpoint(self.cfg.path_to_checkpoint, self.cfg)
+        #check_checkpoint(self.cfg.path_to_checkpoint, self.cfg)
         self.model = yolov5.load(self.cfg.path_to_checkpoint + self.cfg.checkpoint)
         self.model.conf = self.cfg.conf  # NMS confidence threshold
         self.model.iou = self.cfg.iou  # NMS IoU threshold
@@ -254,7 +254,7 @@ class OpenpifpafWrapper(ModelWrapper):
         self.args.disable_cuda = self.cfg.disable_cuda
         self.args.batch_size = self.cfg.batch_size
         self.args.fast_rescaling = self.cfg.fast_rescaling
-        self.args.quiet = self.cfg.quiet
+        self.args.quiet = True # self.cfg.quiet
         self.args.instance_threshold = self.cfg.instance_threshold
         self.args.force_complete_pose = self.cfg.force_complete_pose
         self.read_video = True

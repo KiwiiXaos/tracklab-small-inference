@@ -1,4 +1,4 @@
-_target_: inference.OCSORT_Wrapper
+_target_: inference.OCSortWrapper
 
 cfg: 
   min_confidence: 0.4
