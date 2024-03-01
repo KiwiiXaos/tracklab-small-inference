@@ -10,6 +10,9 @@ git clone git@github.com:KiwiiXaos/tracklab-small-inference.git
 cd inference/
 ```
 Use poetry to install dependencies. Python ">=3.8.0,<4.0" torch "=2.1.1"
+
+**Post-install**: among the Yolov5 dependencies, roboflow installs opencv-python-headless. This is a problem because opencv-python-headless doesn't support cv2.imshow, which breaks deployment. Opencv-python-headless must be uninstalled and opencv-python reinstalled.
+
 ```bash
 poetry shell
 poetry install
