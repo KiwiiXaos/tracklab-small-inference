@@ -32,7 +32,7 @@ online: False
 
 json_output: None
 
-video_path: "/home/celine/pb-small/pb-track/inference/video_files/dartfishframaflink2.mp4"
+video_path: "/home/celine/pb-small/pb-track/inference/video_files/openpifpaf.mp4"
 video_batch: True
 
 test_tracking: True

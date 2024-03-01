@@ -297,6 +297,7 @@ class VideoInference():
             return patch
         
         for _, detection_pred in detections_pred.iterrows():
+            print
             visEngine._draw_detection(patch, detection_pred, is_prediction=True)
 
         # draw ground truths
@@ -382,8 +383,9 @@ class VideoInference():
         - cfg: Hydra configs
         - video_path: String: Video output name and path.
         '''
+
         track_history = defaultdict(lambda: [])
-        test = VisualizationEngine(cfg)
+        test = VisualizationEngine(cfg.cfg)
         stream = VideoCapture(self.path)
         
         
@@ -474,7 +476,7 @@ class VideoInference():
         
         """
         cfg = hydra.compose(config_name="visualization/visualization")
-        cfg = cfg.visualization.cfg
+        cfg = cfg.visualization
         self.visualization_cli(cfg, video_path)
 
     def read_from_json(self, filename):
