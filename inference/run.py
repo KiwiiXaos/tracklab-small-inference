@@ -383,9 +383,9 @@ class VideoInference():
         - cfg: Hydra configs
         - video_path: String: Video output name and path.
         '''
-
+        cfg = cfg.cfg
         track_history = defaultdict(lambda: [])
-        test = VisualizationEngine(cfg.cfg)
+        test = VisualizationEngine(cfg)
         stream = VideoCapture(self.path)
         
         
