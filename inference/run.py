@@ -407,7 +407,7 @@ class VideoInference():
             detections = []
             final_detections = pd.DataFrame()
             
-            is_openpifpaf = self.previous_results[0]["model"] =='openpifpaf'
+            #is_openpifpaf = self.previous_results[0]["model"] =='openpifpaf'
             nb_frame = len(self.previous_results)
             if ret and frame_i < len(self.previous_results):
                 for idx, annot in enumerate(self.previous_results[frame_i]['annotations']):
