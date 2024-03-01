@@ -39,12 +39,12 @@ Work in progress
 
 Python examples are available in tracklab/inference/examples/ folder
 
-***Import Module**
+**Import Module**
 ```bash
 import pb-track.inference as inference
 ```
 
-***Initialise Inference with mp4 file ***
+**Initialise Inference with mp4 file**
 ```bash
 inference = VideoInference('/path/video.mp4')
 
@@ -62,14 +62,14 @@ inference.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
 
 ```
 
-***Process Multiple files***
+**Process Multiple files**
 ```bash
 file_list = ['path/video1.mp4', path/video2.mp4']
 inference.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
 
 ```
 
-***Offline inference***
+**Offline inference**
 ```bash
 inference.process_video('/home/celine/pb-small/pb-track/inference/video_files/baby.json')
 
