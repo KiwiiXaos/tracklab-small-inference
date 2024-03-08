@@ -1,0 +1,26 @@
+_target_: inference.AFLinkWrapper
+
+
+cfg:
+  path_to_checkpoint: '/home/celine/pb-dart2/pb-track/inference/checkpoints/' #${checkpoints_dir}
+  checkpoint: dartfishmodel_epoch100.pth
+  root_train: '/work/vita/datasets/Dartfish/Track_Data/annotations_linked_by_video'
+  train_batch:  16
+  train_epoch: 100
+  train_lr: 0.001
+  #train_lr = 0.0001
+  train_warm: 0
+  train_decay: 0.00001
+  num_workers: 0
+  val_batch: 32
+  model_minLen: 30
+  model_inputLen: 30
+  thrP: 0.05
+  thrS: 200
+  thrT_max: 30
+  thrT_min: 0
+  dir_out: None
+  path_in: '/home/celine/pb-dart2/pb-track/inference/video_files/test2.json'
+
+
+

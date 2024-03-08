@@ -503,7 +503,7 @@ class VideoInference():
         
         """
         try:
-            with open(filename, "r") as t:
+            with open(filename, "w") as t:
                 for i, result in enumerate(self.previous_results):
                     json.dump({
                                                 'frame': i,
@@ -645,7 +645,21 @@ class VideoInference():
         if cfg.imshow == True:
             cv2.destroyAllWindows()
 
-    
+    def track_eval(self):
+        #TODO: Check if tracking id
+        anno =[]
+        for i, result in enumerate(self.previous_results):
+            for detection in result:
+                dict ={}
+                dict = detection
+                dict['image_id']= i
+                dict['id'] = result['track_id']
+                anno.append(dict)
+        import pbd
+        pbd.set_trace()
+
+
+
 
 @hydra.main(config_path="configs", config_name="config")
 def func(cfg: DictConfig):

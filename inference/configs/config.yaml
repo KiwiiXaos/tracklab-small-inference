@@ -5,6 +5,8 @@ defaults:
   - track : oc_sort
   - visualization : visualization
 
+visualize: True
+
 #PYTHON API DEFAULT CONFIG FILES FOR EACH MODELS AND TRACKERS..
 config_models:
   openpifpaf : detector/openpifpaf 
@@ -24,22 +26,8 @@ config_visualization:
   -visualization: visualization
   
 
-experiment_name: "inference video"
 checkpoints_dir: "/home/celine/pb-small/pb-track/inference/checkpoints/"
-visualize: True
-
 online: False
-
 json_output: None
-
 video_path: "/home/celine/pb-dart2/pb-track/inference/video_files/IngenioPark.mp4"
-video_batch: True
 
-test_tracking: True
-use_wandb: False
-
-
-
-# configure Hydra to use the current working directory
-# and set up the output directory according to experiment_name
-project_dir: "${hydra:runtime.cwd}"

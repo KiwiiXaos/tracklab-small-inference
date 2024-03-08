@@ -14,9 +14,9 @@ from hydra.utils import instantiate
 ### Model packages
 import yolov5
 import openpifpaf
-#from plugins.track.AFLink.model import PostLinker
-#from plugins.track.AFLink.AppFreeLink import AFLink
-#from plugins.track.AFLink.dataset import LinkData, DartfishLinkData
+from plugins.track.aflink.model import PostLinker
+from plugins.track.aflink.AppFreeLink import AFLink
+from plugins.track.aflink.dataset import LinkData, DartfishLinkData
 
 from tracklab.utils.collate import Unbatchable
 from tracklab.utils.coordinates import *
@@ -54,6 +54,7 @@ class ModelWrapper:
         self.name = model_name
         self.postprocess = False
         self.initial = True
+        self.online = True
 
     def preprocess(self, frame):
         return frame
@@ -75,6 +76,7 @@ class TrackWrapper:
         self.name = model_name
         self.postprocess = False
         self.initial = False
+        self.online = True
 
     def preprocess(self, frame):
         return frame
@@ -93,6 +95,7 @@ class DeepTrackWrapper:
         self.name = model_name
         self.postprocess = False
         self.initial = False
+        self.online = True
 
     def preprocess(self, frame):
         return frame
@@ -111,6 +114,7 @@ class PostProcessWrapper:
         self.postprocess = True
         self.initial = False
         self.read_video = False
+        self.online = False
     def process(self, frame):
         pass
 
@@ -578,8 +582,8 @@ class AFLinkWrapper(PostProcessWrapper):
 
         self.cfg = cfg#.track.cfg
         self.device = device
-        self.model = PostLinker()
-        self.model.load_state_dict(torch.load(join(cfg.model_savedir, 'dartfishmodel_epoch100.pth')))
+        self.model = PostLinker() 
+        self.model.load_state_dict(torch.load(join(self.cfg.path_to_checkpoint, self.cfg.checkpoint)))
         self.dataset = LinkData('', '')
     
     def convert_AFLink(self, filename):
@@ -587,7 +591,7 @@ class AFLinkWrapper(PostProcessWrapper):
         if type(filename) is str:
             width_height = json.loads(line.strip())["predictions"]['width_height']
             try:
-                with open("your_file.txt", "r") as f:
+                with open(filename + "_link_file.txt", "r") as f:
                     f = open(filename, 'r')
                     for i, line in enumerate(f):
                         for annot in json.loads(line.strip())["predictions"]['annotations']:
@@ -612,7 +616,7 @@ class AFLinkWrapper(PostProcessWrapper):
 
     def AFLink_to_dict(self, af_annots):
         results = []
-        print(af_annots)
+        #print(af_annots)
         
         afdict = af_annots['annotations']
         width_height = af_annots['width_height']
