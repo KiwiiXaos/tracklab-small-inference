@@ -568,7 +568,6 @@ class StrongSortWrapper(DeepTrackWrapper):
                 #ipdb.set_trace()
                 output['annotations'][int(results[i][8])]['track_id'] = int(results[i][4])
                 new_output['annotations'].append(output['annotations'][int(track_output[i][8])])
-                #new_output['tracker'] = self.name
             new_output['width_height'] = output['width_height']
             new_output['model'] = output['model']
             new_output['tracker'] = self.name

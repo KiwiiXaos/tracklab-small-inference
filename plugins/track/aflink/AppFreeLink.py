@@ -39,7 +39,6 @@ class AFLink:
     def gather_info(self):
         id2info = defaultdict(list)
         for row in self.track:
-            print(np.array(row['bbox']))
 
             x, y, w, h = np.array(row['bbox'])
             id2info[row['track_id']].append([row['image_id'], x, y, w, h])
@@ -50,7 +49,6 @@ class AFLink:
     # 损失矩阵压缩
     def compression(self, cost_matrix, ids):
         # 行压缩
-        print(cost_matrix)
         mask_row = cost_matrix.min(axis=1) < self.thrP
         matrix = cost_matrix[mask_row, :]
         ids_row = ids[mask_row]
@@ -78,7 +76,6 @@ class AFLink:
     # 主函数
     def link(self):
         id2info = self.gather_info()
-        print(id2info)
         num = len(id2info)  # 目标数量
         ids = np.array(list(id2info))  # 目标ID
         fn_l2 = lambda x, y: np.sqrt(x ** 2 + y ** 2)  # L2距离

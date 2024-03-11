@@ -35,9 +35,30 @@ Work in progress
 * bot_sort
 * bytetrack_sort
 
+### Post-process
+* af_link (Work in Progress)
+
+
+## Hydra Configuration
+
+1. **Pipeline Settings**: Can be configured and are accessible in the `/inference/configs/` directory.
+
+2. **Main Configuration File**: The main configuration file, `config.yaml`, is located in `/inference/configs/`. This file loads other configuration files and serves as the central configuration point.
+
+3. **Checkpoints Directory**: The `checkpoints_dir` setting in `config.yaml` specifies the path used to load and download model checkpoints.
+
+4. **CLI Usage**: Models are instantiated using Hydra. The pipeline configuration can be defined in the `default` section of `config.yaml`.
+
+5. **Video Path**: `video_path` is a parameter used in CLI commands, specifying the path to the video file.
+
+6. **Python Usage**: When using Python, models are not instantiated using Hydra. Instead, configuration files are read during initialization. The `config_models` parameter specifies the path of default config files for each model.
+
+7. **Work in progress**: Implementing functionality to dynamically load configuration files from custom paths specified by the user.
+
+
 ## How to use with Python
 
-Python examples are available in tracklab/inference/examples/ folder
+Python examples are available in `tracklab/inference/examples/` folder.
 
 **Import Module**
 ```bash
@@ -64,7 +85,7 @@ inference.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
 
 **Process Multiple files**
 ```bash
-file_list = ['path/video1.mp4', path/video2.mp4']
+file_list = ['path/video1.mp4', 'path/video2.mp4']
 inference.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
 
 ```
@@ -87,4 +108,14 @@ python -m inference.run
 
 ```
 
+## Framework overview
+
+1. **VideoInference**: Abstract Class instantiated for the pipeline.  
+    - *pipeline*: An array containing different models defined for the inference pipeline. This likely includes various stages of processing such as detection and tracking.
+    - *previous_results*: Dictionary storing detection results. If two detectors, or two tracker are used the data will be overwriten. Dataformat is:
+    ```bash
+    #TODO: Finish it
+
+    ```
+    - *device*: The attribute for defining GPU usage. It automatically detects whether CUDA (NVIDIA's parallel computing platform) is available and sets GPU usage accordingly. 
 

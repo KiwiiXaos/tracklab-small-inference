@@ -2,12 +2,12 @@ from inference import *
 
 
 video_path = "/path/video.mp4"
-video_path = "/home/celine/pb-dart2/pb-track/inference/video_files/IngenioPark-Video1.mp4"
+video_path = "/home/celine/pb-dart2/pb-track/inference/video_files/output_ZED.mp4"
 output_json_path = '/path/result.json'
 output_json_path = "/home/celine/testest44.json"
 
 output_video_path = '/path/video_result.mp4'
-output_video_path = "/home/celine/pb-small/pb-track/inference/video_files/openpifpafjsp.mp4"
+output_video_path = "/home/celine/pb-small/pb-track/inference/video_files/output_zed.mp4"
 
 if __name__ == "__main__":
 
