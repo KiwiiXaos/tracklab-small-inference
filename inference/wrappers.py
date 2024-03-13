@@ -41,10 +41,7 @@ from openpifpaf import transforms
 
 from tracklab.utils.coordinates import ltrb_to_ltwh
 from tracklab.utils.openmmlab import get_checkpoint
-
-
 from tracklab.utils.coordinates import sanitize_keypoints, generate_bbox_from_keypoints
-
 
 
 ##### DETECT MULTIPLE #####
@@ -68,8 +65,6 @@ class ModelWrapper:
         return self.run(frame=frame)
     
 
-    
-
 class TrackWrapper:
     def __init__(self, model_name) -> None:
         self.read_video = False
@@ -89,6 +84,7 @@ class TrackWrapper:
         result = self.run(output)
         return result
     
+
 class DeepTrackWrapper:
     def __init__(self, model_name) -> None:
         self.read_video = True
@@ -107,6 +103,7 @@ class DeepTrackWrapper:
         result = self.process(frame, output)
         return result
 
+
 class PostProcessWrapper:
     def __init__(self, model_name) -> None:
         self.read_video = False
@@ -123,12 +120,11 @@ class PostProcessWrapper:
         return result
     
 
-
-
 def download_drive(checkpoint_path: str, cfg: dict) -> None:
    
     import gdown
     gdown.download(id=cfg.download_weights, output=cfg.path_to_checkpoint + cfg.checkpoint, quiet=False, use_cookies=False)
+
 
 def download_website(repo_url: str, target_dir:str):
     log.info('Downloading ' + repo_url)
@@ -156,8 +152,6 @@ def check_checkpoint(checkpoint_path: str, cfg: dict):
             download_website(cfg.download_weights,checkpoint_path + cfg.checkpoint)
 
 
-
-
 class Yolov5Wrapper(ModelWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__("yolov5")
@@ -170,6 +164,7 @@ class Yolov5Wrapper(ModelWrapper):
         self.model.multi_label = self.cfg.multi_label  # NMS multiple labels per box
         self.model.max_det = self.cfg.max_det  # maximum number of detections per image
         self.read_video = self.cfg.read_video
+
     @torch.no_grad()
     def process(self, frame: np.array, results = None) -> dict:
         results_by_image = self.model(frame, size=len(frame[0]))
@@ -198,7 +193,6 @@ class Yolov5Wrapper(ModelWrapper):
         }
 
 
-#TODO: POSE OR NOT POSE, only the checkpoint is different.. Check if configs should changes...
 class Yolov8Wrapper(ModelWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__("yolo")
@@ -236,8 +230,9 @@ class Yolov8Wrapper(ModelWrapper):
             'width_height': (np.shape(frame)[1],np.shape(frame)[0]),
             'model': self.name
         }
+    
+
 #TODO: Every Openpifpaf plugins/models here
-#TODO: ARGS to fix !!!
 class OpenpifpafWrapper(ModelWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('openpifpaf')
@@ -284,7 +279,6 @@ class OpenpifpafWrapper(ModelWrapper):
         cfg = hydra.compose(config_name="configs/detector/openpifpaf/plugins")
         self.args.checkpoint = self.cfg
 
-
     def configure(self):
         openpifpaf.decoder.configure(self.args)
         openpifpaf.network.Factory.configure(self.args)
@@ -322,7 +316,7 @@ class OpenpifpafWrapper(ModelWrapper):
 
     @torch.no_grad()
     def preprocess(self, frame):
-        #TODO PREPROCESS OPENPIFPAF WITHOUT PIL CONVERTION..?
+        #TODO Preprocess openpifpaf without PIL ?
         processed_image, _, meta = self.pifpaf_preprocess(Image.fromarray(frame), [], None)
         return [processed_image, _, meta]
     
@@ -344,7 +338,6 @@ class OpenpifpafWrapper(ModelWrapper):
 
 
 #TODO: Change params... Maybe Hydra file by default, can me selected on command line..?
-#/home/celine/pb-dart2/pb-track/inference/configs/track/oc_sort.yaml
 class OCSortWrapper(TrackWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('oc sort')
@@ -385,6 +378,7 @@ class OCSortWrapper(TrackWrapper):
         )
         self.args, _ = parser.parse_known_args()
 
+
 class BytetrackWrapper(TrackWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('bytetrack')
@@ -394,7 +388,6 @@ class BytetrackWrapper(TrackWrapper):
         self.read_video = False
         self.name = 'byte track'
 
-    #TODO: Delete non tracked or not ..?
     @torch.no_grad()
     def process(self, output: dict) -> dict:
         pred_bboxes = []
@@ -416,6 +409,7 @@ class BytetrackWrapper(TrackWrapper):
         new_output['tracker'] = self.name
         return new_output
     
+
 class BotSortWrapper(DeepTrackWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('bot sort')
@@ -426,7 +420,6 @@ class BotSortWrapper(DeepTrackWrapper):
         self.read_video = True
         self.initial = False
         self.name = 'bot sort'
-
 
     def reset(self) -> None:
         """Reset the tracker state to start tracking in a new video."""
@@ -443,7 +436,6 @@ class BotSortWrapper(DeepTrackWrapper):
 
     def preprocess(self, frame):
         return frame
-
 
     @torch.no_grad()
     def process(self, frame, output):
@@ -516,6 +508,7 @@ class DeepOCSortWrapper(DeepTrackWrapper):
         new_output['tracker'] = self.name
         return new_output
     
+
 class StrongSortWrapper(DeepTrackWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('strong sort')
@@ -574,6 +567,7 @@ class StrongSortWrapper(DeepTrackWrapper):
 
         return new_output
     
+
 class AFLinkWrapper(PostProcessWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('aflink')
@@ -612,14 +606,10 @@ class AFLinkWrapper(PostProcessWrapper):
 
         return {'annotations': annotdict, 'width_height': width_height}
     
-
     def AFLink_to_dict(self, af_annots):
-        results = []
-        #print(af_annots)
-        
+        results = []        
         afdict = af_annots['annotations']
         width_height = af_annots['width_height']
-
 
         nb_frame = max(item["image_id"] for item in afdict)
         for i in range(0,nb_frame):
@@ -634,7 +624,7 @@ class AFLinkWrapper(PostProcessWrapper):
         linker = AFLink(
             path_in=self.cfg.path_in,
             #TODO: FIX IT
-            path_out='/home/celine/pb-dart2/pb-track/inference/video_files/testaflink.json',
+            path_out= self.cfg.json_output + 'aflink.json',
             model=self.model,
             dataset=self.dataset,
             thrT=(self.cfg.thrT_min,self.cfg.thrT_max),  # (0,30) or (-10,30)
@@ -648,5 +638,8 @@ class AFLinkWrapper(PostProcessWrapper):
 
     def process(self, output):
         af_annots = self.convert_AFLink(output)
+
+        if len(af_annots['annotations']) == 0:
+            return [{'annotations': [], 'width_height': af_annots['width_height'], 'model': 'aflink'}]
         output = self.link(af_annots)
         return self.AFLink_to_dict(output)

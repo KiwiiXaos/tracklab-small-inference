@@ -12,7 +12,8 @@ output_video_path = "/home/celine/pb-small/pb-track/inference/video_files/output
 if __name__ == "__main__":
 
     test = VideoInference(video_path=video_path)
-    test.add_model(['openpifpaf', 'bytetrack_sort','af_link'])
+    test.add_model('openpifpaf')
+    test.add_model('bytetrack_sort')
 
     print(test.pipeline)
 

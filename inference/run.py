@@ -36,14 +36,10 @@ from omegaconf import DictConfig, OmegaConf
 from tracklab.core.visualization_engine import print_count_frame, final_patch, VisualizationEngine
 from inference.wrappers import *
 
-#TODO GET MODEL LIST FOR EACH WRAPPERS...
+# TODO: Config files should be overwritten. Maybe make a fonction for that ..?
 
-#TODO: A WAY TO DOWNLOAD EVERY MODELS..
-# TODO: CONFIG FILE WITH HYDRA, CAN BE CHANGED WITH COMMAND LINE Maybe make a fonction for that ..?
-
-
-
-log = logging.getLogger(__name__)
+os.environ["HYDRA_FULL_ERROR"] = "1"
+log = logging.getLogger(__name__)      
 
 MODEL_MAP = {
     'openpifpaf':OpenpifpafWrapper,
@@ -77,21 +73,6 @@ MODEL_CLASS_MAP = {
 }
 
 
-
-def get_torch_checkpoints_dir():
-    base_dir = None
-    if hasattr(torch, 'hub') and hasattr(torch.hub, 'get_dir'):
-        # new in pytorch 1.6.0
-        base_dir = torch.hub.get_dir()
-    elif os.getenv('TORCH_HOME'):
-        base_dir = os.getenv('TORCH_HOME')
-    elif os.getenv('XDG_CACHE_HOME'):
-        base_dir = os.path.join(os.getenv('XDG_CACHE_HOME'), 'torch')
-    else:
-        base_dir = os.path.expanduser(os.path.join('~', '.cache', 'torch'))
-    return os.path.join(base_dir, 'checkpoints')
-
-
 #TODO: Print every settings for command line/api
 def Configs_Wrappers(cfg, cli_args, name):
     config = {}
@@ -102,9 +83,6 @@ def Configs_Wrappers(cfg, cli_args, name):
         else:
             config[setting.key()] = cfg.setting.value()
     return config
-            
-os.environ["HYDRA_FULL_ERROR"] = "1"
-log = logging.getLogger(__name__)         
 
 
 def merge_dataframes(main_df, appended_piece):
@@ -166,8 +144,6 @@ def new_model(one_model, device):
     raise Exception("model not available")
 
 
-
-#im = Image.open('/home/celine/scene_graph/SGG/openpifpaf/image_test_openpifpaf.png')
 class VideoInference():
     """
     Inference pipeline
@@ -209,7 +185,6 @@ class VideoInference():
                 video_output = video_name[:-4] + '_output.mp4'
                 self.visualization(video_output)
             
-
     def process_folder(self, directory_path: str, visualization = False):
         """
         process all the mp4 files from one folder.
@@ -236,9 +211,6 @@ class VideoInference():
 
             else:
                 log.exception("Please give a folder as input")
-
-
-    
 
     def add_model(self, models):
         """
@@ -271,8 +243,8 @@ class VideoInference():
                 
                 self.pipeline = add_single(model)
         else:
+            model = models
             self.pipeline = add_single(models)
-
     
     def process_frame(self,
         visEngine, patch, frame_i, detections_pred, ground_truths, video_name, nframes
@@ -388,7 +360,6 @@ class VideoInference():
         test = VisualizationEngine(cfg)
         stream = VideoCapture(self.path)
         
-        
         video_output = cv2.VideoWriter(video_path,
                                 cv2.VideoWriter_fourcc(*"mp4v"),
                                 float(30),
@@ -406,7 +377,6 @@ class VideoInference():
             ret, frame = stream.read()
             detections = []
             final_detections = pd.DataFrame()
-            
             #is_openpifpaf = self.previous_results[0]["model"] =='openpifpaf'
             nb_frame = len(self.previous_results)
             if ret and frame_i < len(self.previous_results):
@@ -426,7 +396,6 @@ class VideoInference():
                         track_id = annot['track_id']
                     else:
                         track_id = -1
-
 
                     detections.append(
                     pd.Series(
@@ -477,6 +446,7 @@ class VideoInference():
         """
         cfg = hydra.compose(config_name="visualization/visualization")
         cfg = cfg.visualization
+    
         self.visualization_cli(cfg, video_path)
 
     def read_from_json(self, filename):
@@ -655,10 +625,6 @@ class VideoInference():
                 dict['image_id']= i
                 dict['id'] = result['track_id']
                 anno.append(dict)
-        import pbd
-        pbd.set_trace()
-
-
 
 
 @hydra.main(config_path="configs", config_name="config")
@@ -694,8 +660,6 @@ def func(cfg: DictConfig):
 
     if cfg.visualize: #visualize american
         inference.visualization_cli(cfg.visualization , cfg.video_path)
-
-
 
                 
 if __name__ == "__main__":
