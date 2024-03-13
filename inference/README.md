@@ -1,7 +1,7 @@
-Inference Module for object detection, pose detection and tracking algorithms.
+### Inference Module for object detection, pose detection and tracking algorithms.
 
 
-## Installation guide[^1]
+## Installation guide
 
 
 Download github repo:
