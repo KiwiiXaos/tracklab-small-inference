@@ -1,15 +1,20 @@
-_target_: inference.YOLOv5_DartFish
+_target_: inference.Yolov5Wrapper
 
 cfg:
   # models available :
   # yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt, yolov8x6.pt
   # yolov5nu.pt, yolov5su.pt, yolov5mu.pt, yolov5lu.pt, yolov5xu.pt, yolov5x6u.pt
   # those models will be downloaded automatically if not found in the path
-  yolo_weights: yolov5n.pt # yolov8x-pose-p6.pt # 
+  download_weights: "1r2gMCCHWUBJwh5WrKw15CdNTob6cce4h"
+  download_type: "drive"
+
   path_to_checkpoint: ${checkpoints_dir} 
-  checkpoint: yolov5n.pt
-  min_confidence: 0.1
-  imgsz: [1080,1920]
-  dnn: 1
-  half: False
+  checkpoint: 'last.pt' # yolov8x-pose-p6.pt # 
+  min_confidence: 0
+  conf : 0.25  # NMS confidence threshold
+  iou : 0.45  # NMS IoU threshold
+  agnostic : False  # NMS class-agnostic
+  multi_label : False  # NMS multiple labels per box
+  max_det : 1000  # maximum number of detections per image
+  read_video : True
 

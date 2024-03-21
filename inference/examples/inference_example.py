@@ -2,18 +2,17 @@ from inference import *
 
 
 video_path = "/path/video.mp4"
-video_path = "/home/celine/pb-dart2/pb-track/inference/video_files/output_ZED.mp4"
+video_path = "/home/celine/Videos/vlc-record-2024-03-21-11h33m32s-video81.mp4-.mp4"
 output_json_path = '/path/result.json'
 output_json_path = "/home/celine/testest44.json"
 
 output_video_path = '/path/video_result.mp4'
-output_video_path = "/home/celine/pb-small/pb-track/inference/video_files/output_zed.mp4"
+output_video_path = "/home/celine/Videos/vlc-record-result.mp4"
 
 if __name__ == "__main__":
 
     test = VideoInference(video_path=video_path)
-    test.add_model('openpifpaf')
-    test.add_model('bytetrack_sort')
+    test.add_model(['yolov5', 'oc_sort', 'af_link'])
 
     print(test.pipeline)
 

@@ -156,7 +156,8 @@ class Yolov5Wrapper(ModelWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__("yolov5")
         self.cfg = cfg
-        #check_checkpoint(self.cfg.path_to_checkpoint, self.cfg)
+        
+        check_checkpoint(self.cfg.path_to_checkpoint, self.cfg)
         self.model = yolov5.load(self.cfg.path_to_checkpoint + self.cfg.checkpoint)
         self.model.conf = self.cfg.conf  # NMS confidence threshold
         self.model.iou = self.cfg.iou  # NMS IoU threshold
@@ -207,7 +208,7 @@ class Yolov8Wrapper(ModelWrapper):
 
     @torch.no_grad()
     def process(self, frame: np.array, results = None) -> dict:
-        results_by_image = self.model(source=frame, augment=False)
+        results_by_image = self.model(source=frame, augment=False, verbose=False )
         res = []
         shape = (frame.shape[1], frame.shape[0]) 
         for results in zip(results_by_image):
@@ -571,7 +572,6 @@ class StrongSortWrapper(DeepTrackWrapper):
 class AFLinkWrapper(PostProcessWrapper):
     def __init__(self, device: str, cfg: dict) -> None:
         super().__init__('aflink')
-    
 
         self.cfg = cfg#.track.cfg
         self.device = device
@@ -622,9 +622,9 @@ class AFLinkWrapper(PostProcessWrapper):
 
     def link(self, af_annot):
         linker = AFLink(
-            path_in=self.cfg.path_in,
+            path_in= self.cfg.path_to_checkpoint[:-4] + ".txt" ,
             #TODO: FIX IT
-            path_out= self.cfg.json_output + 'aflink.json',
+            path_out= self.cfg.path_to_checkpoint[:-4] + 'aflink.json',
             model=self.model,
             dataset=self.dataset,
             thrT=(self.cfg.thrT_min,self.cfg.thrT_max),  # (0,30) or (-10,30)

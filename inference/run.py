@@ -139,6 +139,7 @@ def new_model(one_model, device):
                 cfg_file_name = cfg.config_models[one_model]
                 cfg_model = hydra.compose(config_name=cfg_file_name)[MODEL_CLASS_MAP[one_model]]['cfg']
                 cfg_model['path_to_checkpoint'] = cfg_default.checkpoints_dir
+
                 model = MODEL_MAP[one_model](device, cfg_model)
                 return model
     raise Exception("model not available")
@@ -534,9 +535,9 @@ class VideoInference():
                         else: 
                             self.previous_results = results
                             break
-                if self.json:
-                    t.close()
-                log.info('time', time.time() - start, 's')
+                    if self.json:
+                        t.close()
+                    log.info('time', time.time() - start, 's')
             else:
                 frame_i = -1
                 if len(self.previous_results) ==0 :

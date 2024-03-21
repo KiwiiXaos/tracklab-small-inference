@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pb-small"
+name = "tracklab"
 version = "0.1.0"
 description = ""
 authors = ["Celine Demonsant <celine.demonsant@epfl.ch>"]

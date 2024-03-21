@@ -16,7 +16,7 @@ cfg:
   prediction:
     draw_bbox: True
     #TODO: Update draw keypoint depending of model used..?
-    draw_keypoints: True
+    draw_keypoints: False
     draw_skeleton: True
     print_id: True
     print_bbox_confidence: False

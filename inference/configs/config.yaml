@@ -11,6 +11,7 @@ visualize: True
 config_models:
   openpifpaf : detector/openpifpaf 
   yolov5: detector/yolov5
+  yolov8: detector/yolov8
   mmpose_bottomup: detector/mmpose_bottomup
   mmdetection: detector/mmdetection
   mmpose_topdowm: detector/mmpose_topdown
