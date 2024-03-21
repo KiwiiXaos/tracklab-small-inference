@@ -11,6 +11,7 @@ import json
 import argparse
 import numpy as np
 import torch
+import logging as log 
 from os.path import join, exists
 from collections import defaultdict
 from sklearn.preprocessing import normalize
@@ -105,7 +106,7 @@ class AFLink:
             else:
                 ID2ID[v] = k
         res = self.track.copy()
-        print('Fixed tracking ids: ', ID2ID)
+        log.info(f"Fixed tracking ids: '{ID2ID}'")
         for t in res:
             if t['track_id'] in ID2ID.keys():
                 t['track_id'] = ID2ID[t['track_id']]

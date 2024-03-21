@@ -17,7 +17,7 @@ if __name__ == "__main__":
     print(test.pipeline)
 
     #output_json can be None
-    test.process_video(output_json=output_json_path)
+    test.process_video_online()#output_json=output_json_path)
 
     test.visualization(video_path=output_video_path)
 

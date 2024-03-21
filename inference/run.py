@@ -270,7 +270,6 @@ class VideoInference():
             return patch
         
         for _, detection_pred in detections_pred.iterrows():
-            print
             visEngine._draw_detection(patch, detection_pred, is_prediction=True)
 
         # draw ground truths
@@ -414,9 +413,9 @@ class VideoInference():
                         )
                     )
 
-                
                 final_detections = merge_dataframes(final_detections, detections)  
                 result = self.process_frame(test, frame,frame_i, final_detections, False, 'img', nb_frame)
+
                 video_output.write(result)
 
                 if cfg.imshow == True:
@@ -587,20 +586,34 @@ class VideoInference():
         total=stream.get(cv2.CAP_PROP_FRAME_COUNT)    
         while(stream.isOpened()):
             
-
+            was_postprocessed = False
             ret, frame = stream.read()
             if ret:
                 frame_i += 1
                 result =[]
                 for model in self.pipeline:
-                    result = model.process_bloc_stream(frame, result)
-                
+                    
+                    if model.postprocess == True:
+                        if was_postprocessed is True:
+                            raise Exception("Error please don't select two post process algorithms in your pipeline")
+                        was_postprocessed = True
 
+             
+                        self.previous_results.append(result)
+                        self.previous_results = model.process_bloc_stream(frame, self.previous_results)
+
+                        result = self.previous_results[len(self.previous_results)-1]
+                        
+                    else:
+                        result = model.process_bloc_stream(frame, result)
+             
 
                 final_detections = self.visualization_dataframe(frame_i, result)
-                frameshow = self.process_frame(visu, frame, frame_i, final_detections, False, 'img', total)
                 
-                self.previous_results.append(result)
+                frameshow = self.process_frame(visu, frame, frame_i, final_detections, False, 'img', total)
+                if was_postprocessed is False:
+                    self.previous_results.append(result)
+
                 if cfg.imshow == True:
                     cv2.imshow("tracking ", frame)
                     #print('v time', time.time() - start, 's')
@@ -609,6 +622,8 @@ class VideoInference():
 
                 if(len(self.previous_results) % buffer == 0):
                     self.previous_results.pop()
+                if cv2.waitKey(1) & 0xFF == ord("q"):
+                    break
                 #print('v time', time.time() - start, 's')
             else: 
                 break

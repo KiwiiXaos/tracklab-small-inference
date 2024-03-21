@@ -81,6 +81,7 @@ class TrackWrapper:
         return self.process(output)
     
     def process_bloc_stream(self, frame, output) -> dict:
+
         result = self.run(output)
         return result
     
@@ -116,7 +117,7 @@ class PostProcessWrapper:
         pass
 
     def process_bloc_stream(self, frame: np.array, output: dict) -> dict:
-        result = self.process(self, output)
+        result = self.process( output)
         return result
     
 
@@ -359,6 +360,7 @@ class OCSortWrapper(TrackWrapper):
         if(len(pred_bboxes)==0):
             return {'annotations':[], 'width_height': output['width_height'], 'tracker': self.name }
         track_output = self.tracker.update(torch.tensor(pred_bboxes), None)
+        
         #results = np.asarray(track_output)  # N'x8 [l,t,r,b,track_id,class,conf,idx]
         for i in range(len(track_output)):
             
@@ -592,7 +594,7 @@ class AFLinkWrapper(PostProcessWrapper):
                                 annotdict.append({"bbox":annot['bbox'], "track_id":annot['track_id'], "score":annot['score'], "image_id":i, "category_id":annot['category_id']})  
             except FileNotFoundError:
                 raise Exception("File "+filename+" not found")   
-                            
+                  
         elif type(filename) is list:
             
             width_height = filename[0]['width_height']
@@ -601,6 +603,8 @@ class AFLinkWrapper(PostProcessWrapper):
             for i, frame in enumerate(filename):
                 for annot in frame['annotations']:
                     annotdict.append({"bbox": annot['bbox'], "track_id": annot['track_id'], "score": annot['score'], "image_id":i, "category_id":annot['category_id']})
+
+        
         else:
             raise Exception("Unexpected input type")
 
@@ -611,8 +615,11 @@ class AFLinkWrapper(PostProcessWrapper):
         afdict = af_annots['annotations']
         width_height = af_annots['width_height']
 
+
         nb_frame = max(item["image_id"] for item in afdict)
-        for i in range(0,nb_frame):
+
+        for i in range(0,nb_frame+1):
+
             annot = []
             selected_items = [item for item in afdict if item["image_id"] == i]
             for item in selected_items:
