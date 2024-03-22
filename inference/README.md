@@ -164,4 +164,14 @@ python -m inference.run
         }
 
         ```
-        
+2. **Plugins**: Python tracking model files are stored either in the /plugins/ folder or installed via pip. The list of tracking that can be found in the plugins folder.
+    - aflink
+    - bot_sort
+    - deep_oc_sort
+    - oc_sort
+    - strong_sort
+    - byte_track
+
+3. **inference.wrappers**: `wrappers.py` contains model and tracker APIs. It standardizes the input and output format for each model.
+
+4. **Model Checkpoints**: Checkpoints are automatically downloaded if not available in the checkpoint directory. They are configurable in the configuration files.
