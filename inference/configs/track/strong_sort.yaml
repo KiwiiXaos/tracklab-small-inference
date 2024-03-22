@@ -10,6 +10,8 @@ cfg:
   min_confidence: 0.4
   ecc: true  # default = true
   download_id: 1QkxD9l8xLuekwJ-jWCMcNYif4RNGc_S6
+  download_type: 'drive'
+
 
   hyperparams:
     ema_alpha: 0.8962157769329083  # default = 0.9

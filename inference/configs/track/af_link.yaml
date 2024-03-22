@@ -3,7 +3,7 @@ _target_: inference.AFLinkWrapper
 
 cfg:
   checkpoint: dartfishmodel_epoch100.pth
-  root_train: '/work/vita/datasets/Dartfish/Track_Data/annotations_linked_by_video'
+  root_train: '/data/'
   download_weights: "aoBb1vVP3oNxhohJQr_YhsyYZpMP3ko-"
   download_type: "drive"
   path_to_checkpoint: ${checkpoints_dir} 
