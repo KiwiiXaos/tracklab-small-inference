@@ -416,7 +416,7 @@ class VideoInference():
                 final_detections = merge_dataframes(final_detections, detections)  
                 result = self.process_frame(test, frame,frame_i, final_detections, False, 'img', nb_frame)
 
-                video_output.write(result)
+                video_output.write(frame)
 
                 if cfg.imshow == True:
                     plt.imshow(frame)
@@ -570,8 +570,6 @@ class VideoInference():
         Process video online.
         
         """
-        #TODO: Test with videos... 
-        #Visual tool..
         cfg = hydra.compose(config_name="visualization/visualization")
         cfg = cfg.visualization.cfg
         visu = VisualizationEngine(cfg)
