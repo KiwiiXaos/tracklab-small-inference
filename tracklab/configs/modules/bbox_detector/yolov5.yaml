@@ -1,0 +1,9 @@
+_target_: tracklab.wrappers.YOLOv5
+
+cfg:
+  path_to_checkpoint: "${model_dir}/yolo/yolov5s.pt"
+  imgsz: 1920
+  min_confidence: 0.4
+  conf_thres: 0.25  # confidence threshold
+  iou_thres: 0.45  # NMS IOU threshold
+  max_det: 1000  # maximum detections per image
