@@ -15,6 +15,9 @@ TrackLab is an easy-to-use modular framework for multi-object pose/segmentation/
 The TrackLab library is in its early stages, and we're eager to evolve it into a robust, mature tracking framework that can benefit the wider community.
 If you're interested in contributing, feel free to open a pull-request or reach out to us!
 
+## Inference
+Inference module and Documentation is available in `/inference/`
+
 ## Introduction
 Welcome to this official repository of TrackLab, a modular framework for multi-object tracking.
 TrackLab is designed for research purposes and supports many types of detectors (bounding boxes, pose, segmentation), datasets and evaluation metrics.

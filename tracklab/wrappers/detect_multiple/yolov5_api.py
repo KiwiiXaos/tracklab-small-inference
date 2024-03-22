@@ -7,7 +7,7 @@ import cv2
 #from plugins.detect.YOLOv5.models.common import DetectMultiBackend
 #from plugins.detect.YOLOv5.utils.augmentations import letterbox
 #from plugins.detect.YOLOv5.utils.general import non_max_suppression, scale_boxes
-import yolov5
+#import yolov5
 from  yolov5.models.common import DetectMultiBackend
 from yolov5.utils.augmentations import letterbox
 from yolov5.utils.general import non_max_suppression, scale_boxes

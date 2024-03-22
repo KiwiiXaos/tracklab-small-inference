@@ -62,7 +62,7 @@ Python examples are available in `tracklab/inference/examples/` folder.
 
 **Import Module**
 ```bash
-import pb-track.inference as inference
+import tracklab.inference as inference
 ```
 
 **Initialise Inference with mp4 file**
@@ -93,8 +93,11 @@ inference.read_from_json('/home/celine/pb-dart2/pb-track/inference/test2.json')
 **Offline inference**
 ```bash
 inference.process_video('/home/celine/pb-small/pb-track/inference/video_files/baby.json')
+```
+**Online inference**
+Online inference doesn't take any arguments
 
-#online inference
+```bash
 
 inference.process_video_online()
 
@@ -102,6 +105,8 @@ inference.process_video_online()
 ```
 
 ## How to use with CLI
+
+Configs files are in `inference/configs`. Configs can be overwritten with CLI using Hydra. 
 
 ```bash
 python -m inference.run
@@ -114,8 +119,49 @@ python -m inference.run
     - *pipeline*: An array containing different models defined for the inference pipeline. This likely includes various stages of processing such as detection and tracking.
     - *previous_results*: Dictionary storing detection results. If two detectors, or two tracker are used the data will be overwriten. Dataformat is:
     ```bash
-    #TODO: Finish it
+    annotations:[
+                    {
+                        keypoints: [x,y,score,x,y,..],
+                        score : float,
+                        category_id: int,
+                        track_id: int,
+                        bbox: [x,y,w,h]
 
+                    },
+                    {
+                        ...
+                    }
+                ]
     ```
     - *device*: The attribute for defining GPU usage. It automatically detects whether CUDA (NVIDIA's parallel computing platform) is available and sets GPU usage accordingly. 
 
+    - *json output dataformat:* 
+        ```bash
+        {
+            frame: i,
+            predictions:[
+                {
+                    annotations:[
+                        {
+                            keypoints: [x,y,score,x,y,..],
+                            score : float,
+                            category_id: int,
+                            track_id: int,
+                            bbox: [x,y,w,h]
+
+                        },
+                        {
+                            ...
+                        }
+                    ]
+                }
+            ]
+
+        }
+        {
+            frame: i+1,
+            predictions: ...
+        }
+
+        ```
+        
